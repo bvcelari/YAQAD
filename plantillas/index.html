@@ -1,0 +1,270 @@
+{% extends "base.html" %}
+{% block cuerpo %}
+	{% if logged_user.username %}
+	  <div id="wrapper">
+    <div class="container">
+    <div class="post text">
+    <div class="icon-text"> </div>
+    <div class="content">
+		{% for myquestion in question_list %}
+        <div class="top"></div>
+        <div class="middle">
+	
+		<div class="post-text">
+                        <h2 class="title"><a href="#">{{ myquestion }}</a></h2>
+                        <div class="info"><span>By: Owner </span>  </div>
+                        <p>
+                        </p>
+                </div>
+                <div class="meta-wrapper">
+                        <div class="meta">
+                                <ul class="post-info">
+                                        <li><span class="post-link"></span><a href="#">{{ myquestion.publication_date|date:"F t, Y"  }}</a></li>
+                                        <li><span class="post-comment"></span><a href="#">{{myquestion.answer.count }}</a></li>
+                                        <li><span class="post-tag"></span><a href="#">Topic 1</a>, <a href="#">Topic 2</a></li>
+                                </ul>
+                                <div class="share"><span class="post-share"></span><a href="#">Share</a></div>
+                                <div class="clear"></div>
+                        </div>
+                </div>
+
+        </div>
+
+		        <div class="bottom"></div>
+<!-- End middle -->
+
+			{% for my_answer in myquestion.answer.all %}
+		<!-- Answer for each Question -->
+<!-- 		<br>
+		        <div id="comments">
+		          <ol id="singlecomments" class="commentlist">
+		
+		            <li class= "clearfix">
+		              <div class="user"><img alt="" src="/static/style/images/art/ad4.jpg" height="48" width="48" class="avatar" /><a class="reply-link" href="#">Reply</a></div>
+		              <div class="message">
+		                <div class="info">
+		                  <h4><a href="#">{{ my_answer.writer }}</a></h4>
+		                  <span class="date">August 29, 2013</span></div>
+		                <p>Quisque tristique tincidunt metus non aliquam. Quisque ac risus sit amet quam sollicitudin vestibulum vitae malesuada libero. Mauris magna elit, suscipit non ornare et, blandit a tellus. Pellentesque dignissim ornare elit, quis mattis eros sodales ac.</p>
+		              </div>
+		              <div class="clear"></div>
+		            </li>
+		          </ol>
+		        </div>
+		<!--End  Answer for each Question -->
+			{% endfor %}
+		{% endfor %}
+    </div>
+    </div>
+
+        <!-- Begin Form -->
+        <div class="comment-form">
+<!--           <h3 class="line">Leave a Reply</h3> -->
+          <div class="form-container">
+            <form class="forms" action="#" method="post">
+              <fieldset>
+                <ol>
+                  <li class="form-row text-area-row">
+                    <label>Answer</label>
+                    <textarea name="message" class="text-area required"></textarea>
+                  </li>
+                  <li class="form-row hidden-row">
+                    <input type="hidden" name="hidden" value="" />
+                  </li>
+                  <li class="button-row">
+                    <input type="submit" value="Submit" name="submit" class="btn-submit" />
+                    <input type="submit" value="Maybe Later" name="Maybe Later" class="btn-submit" />
+                  </li>
+                </ol>
+                <input type="hidden" name="v_error" id="v-error" value="Required" />
+                <input type="hidden" name="v_email" id="v-email" value="Enter a valid email" />
+              </fieldset>
+            </form>
+            <div class="response"></div>
+
+          </div>
+        </div>
+        <!-- End Form -->
+<!-- TODO: Create the space propperly -->
+<br>
+    <!-- Begin Comments Section -->
+                <!-- Begin Comments -->
+
+<!--         <h3 class="line">5 Responses</h3> -->
+
+        <!-- Begin Comments -->
+        <div id="comments">
+          <ol id="singlecomments" class="commentlist">
+            <li class= "clearfix">
+              <div class="user"><img alt="" src="/static/style/images/art/ad1.jpg" height="48" width="48" class="avatar" /><a class="reply-link" href="#">Reply</a></div>
+              <div class="message">
+              <div class="top"></div>
+              <div class="middle">
+                <div class="info">
+                  <h4><a href="#">Jacqueline</a></h4>
+                  <span class="date">August 29, 2013</span>  </div>
+                <p>Quisque tristique tincidunt metus non aliquam. Quisque ac risus sit amet quam sollicitudin vestibulum vitae malesuada libero. Mauris magna elit, suscipit non ornare et, blandit a tellus. Pellentesque dignissim ornare elit, quis mattis eros sodales ac.</p>
+
+
+                </div>
+                <div class="bottom"></div>
+              </div>
+              <div class="clear"></div>
+              <ul class="children">
+                <li class= "clearfix">
+                  <div class="user"><img alt="" src="/static/style/images/art/ad2.jpg" height="48" width="48" class="avatar" /><a class="reply-link" href="#">Reply</a></div>
+                  <div class="message">
+                    <div class="info">
+                      <h4><a href="#">Mathieu</a></h4>
+                      <span class="date">August 29, 2013</span></div>
+                    <p>Quisque tristique tincidunt metus non aliquam. Quisque ac risus sit amet quam sollicitudin vestibulum vitae malesuada libero. Mauris magna elit, suscipit non ornare et, blandit a tellus. Pellentesque dignissim ornare elit, quis mattis eros sodales ac.</p>
+                  </div>
+                  <div class="clear"></div>
+                  <ul class="children">
+                    <li class= "clearfix">
+                      <div class="user"><img alt="" src="/static/style/images/art/ad3.jpg" height="48" width="48" class="avatar" /><a class="reply-link" href="#">Reply</a></div>
+                      <div class="message">
+                        <div class="info">
+                          <h4><a href="#">Charlene</a></h4>
+                          <span class="date">August 29, 2013</span></div>
+                        <p>Quisque tristique tincidunt metus non aliquam. Quisque ac risus sit amet quam sollicitudin vestibulum vitae malesuada libero. Mauris magna elit, suscipit non ornare et, blandit a tellus. Pellentesque dignissim ornare elit, quis mattis eros.</p>
+                      </div>
+                      <div class="clear"></div>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class= "clearfix">
+              <div class="user"><img alt="" src="/static/style/images/art/ad1.jpg" height="48" width="48" class="avatar" /><a class="reply-link" href="#">Reply</a></div>
+              <div class="message">
+                <div class="info">
+                  <h4><a href="#">Isabel</a></h4>
+                  <span class="date">August 29, 2013</span></div>
+                <p>Quisque tristique tincidunt metus non aliquam. Quisque ac risus sit amet quam sollicitudin vestibulum vitae malesuada libero. Mauris magna elit, suscipit non ornare et, blandit a tellus. Pellentesque dignissim ornare elit, quis mattis eros sodales ac.</p>
+              </div>
+              <div class="clear"></div>
+            </li>
+            <li class= "clearfix">
+              <div class="user"><img alt="" src="/static/style/images/art/ad4.jpg" height="48" width="48" class="avatar" /><a class="reply-link" href="#">Reply</a></div>
+              <div class="message">
+                <div class="info">
+                  <h4><a href="#">Jack</a></h4>
+                  <span class="date">August 29, 2013</span></div>
+                <p>Quisque tristique tincidunt metus non aliquam. Quisque ac risus sit amet quam sollicitudin vestibulum vitae malesuada libero. Mauris magna elit, suscipit non ornare et, blandit a tellus. Pellentesque dignissim ornare elit, quis mattis eros sodales ac.</p>
+              </div>
+              <div class="clear"></div>
+            </li>
+          </ol>
+        </div>
+        <!-- End Comments -->
+        <!-- Begin Form -->
+        <div class="comment-form">
+          <h3 class="line">Leave a Reply</h3>
+          <div class="form-container">
+            <form class="forms" action="#" method="post">
+              <fieldset>
+                <ol>
+                  <li class="form-row text-area-row">
+                    <label>Answer</label>
+                    <textarea name="message" class="text-area required"></textarea>
+                  </li>
+                  <li class="form-row hidden-row">
+                    <input type="hidden" name="hidden" value="" />
+                  </li>
+                  <li class="button-row">
+                    <input type="submit" value="Submit" name="submit" class="btn-submit" />
+                    <input type="submit" value="Maybe Later" name="Maybe Later" class="btn-submit" />
+                  </li>
+                </ol>
+                <input type="hidden" name="v_error" id="v-error" value="Required" />
+                <input type="hidden" name="v_email" id="v-email" value="Enter a valid email" />
+              </fieldset>
+            </form>
+            <div class="response"></div>
+          </div>
+        </div>
+        <!-- End Form -->
+        </div> <!-- End Container -->
+
+        <div class="sidebar">
+
+                <div class="sidebox">
+                        <h5>Add a Question</h5>
+                        <form class="answerform" method="get">
+                        <fieldset>
+                        <textarea name="message" class="text-area" value="type question here" onfocus="this.value=''" onblur="this.value='type question here"></textarea>
+
+                        </fieldset>
+                        <span class="left-link">
+                        <a href="#">
+Add a Question
+</a>
+                        </span>
+                        </form>
+                </div>
+                <div class="sidebox">
+                        <h3 class="line">Popular Posts</h3>
+                        <ul class="popular-posts">
+                                <li>
+                                        <a href="#"><img src="/static/style/images/art/ad1.jpg" alt="" /></a>
+                                        <h5><a href="#">Dolor Commodo Consectetur</a></h5>
+                                        <span>26 August 2011 | <a href="#">21 Comments</a></span>
+                                </li>
+
+                                <li>
+                                        <a href="#"><img src="/static/style/images/art/ad2.jpg" alt="" /></a>
+                                        <h5><a href="#">Dolor Commodo Consectetur</a></h5>
+                                        <span>26 August 2011 | <a href="#">21 Comments</a></span>
+                                </li>
+
+                                <li>
+                                        <a href="#"><img src="/static/style/images/art/ad3.jpg" alt="" /></a>
+                                        <h5><a href="#">Dolor Commodo Consectetur</a></h5>
+                                        <span>26 August 2011 | <a href="#">21 Comments</a></span>
+                                </li>
+                        </ul>
+                </div>
+                <div class="sidebox">
+                        <h3 class="line">Categories</h3>
+                        <ul class="cat-list">
+                                <li><a href="#">Web Design (15)</a></li>
+                                <li><a href="#">Photography (17)</a></li>
+                                <li><a href="#">Grapic Design (34)</a></li>
+                                <li><a href="#">Manipulation (24)</a></li>
+                                <li><a href="#">Web Design (15)</a></li>
+                                <li><a href="#">Photography (17)</a></li>
+                                <li><a href="#">Grapic Design (34)</a></li>
+                                <li><a href="#">Manipulation (24)</a></li>
+                        </ul>
+                </div>
+
+
+        </div>
+    <div class="clear"></div>
+
+  </div>
+  <!-- End Wrapper -->
+
+  <div class="push"></div>
+</div>
+<!-- End Body Wrapper -->
+
+<div id="footer">
+  <div class="footer">
+    <p>Copyright &copy; 2011 Socialike. All Rights Reserved.</p>
+  </div>
+</div>
+<script type="text/javascript" src="/static/style/js/scripts.js"></script>
+</body>
+
+
+
+	
+	{% else %}
+	<h2>You are not logged... what you should see?</h2>
+	{% endif %}
+</body>
+</html>
+
+{% endblock %}

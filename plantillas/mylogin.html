@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Log in</title>
+        {% if state = 0 %}
+        <form action="/login/" method="post">
+                {% csrf_token %}
+                {% if next %}
+                <input type="hidden" name="next" value="{{ next }}" />
+                {% endif %}
+                user:
+                <input type="text" name="username" value="{{ username}}" /><br />
+                pass:
+                <input type="password" name="password" value="" /><br />
+
+                <input type="submit" value="Log In" />
+        </form>
+        <a href="/user/password/reset/">Forget password</a>
+        {% endif %}
+        {% if state = 1 %}
+		You are logged as: {{ username }}
+		<br>
+                Will <a href="/index/">redirect</a> automatically...
+		<br>or...
+		<br>
+                <a href="/logout/">logout</a>
+
+        {% endif %}
+</body>
+</html>
+

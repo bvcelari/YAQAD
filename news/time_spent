@@ -1,0 +1,6 @@
+date		time_spent	Task
+20130823	3		Functional analisis. Create enviroment basis
+20130824	2		models and relations of quesstions answer and feders
+20130825	3		base template, login
+20130826	2		select template, partial adap
+20130827	2		Configre static paths, adapt base template

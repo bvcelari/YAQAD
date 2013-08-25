@@ -1,0 +1,80 @@
+{% block cabecera %}
+{% load staticfiles %}
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>Q & A</title>
+<link rel="shortcut icon" type="image/x-icon" href="/static/style/images/favicon.png" />
+<link rel="stylesheet" type="text/css" href="/static/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="/static/style/type/classic.css" media="all" />
+<link rel="stylesheet" type="text/css" href="/static/style/type/goudy.css" media="all" />
+<script type="text/javascript" src="/static/style/js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="/static/style/js/superfish.js"></script>
+<script type="text/javascript" src="/static/style/js/jquery.prettyPhoto.js"></script>
+</head>
+{% endblock %}
+{% block header %}
+<body>
+<div id="body-wrapper"> 
+  <!-- Begin Header -->
+  <div id="header">
+    <!-- Begin Menu -->
+    <div class="menu">
+    	<div class="logo">
+    	   <a href="index.html"><img src="/static/style/images/logo.png" alt="" /></a>
+    	</div>
+    	<div class="menu-text">
+    	    <ul class="sf-menu">
+    	      <li><a href="/addquestion/">Add a Question</a>
+    	       <ul>
+    	          <li><a href="">Add Question</a></li>
+    	          <li><a href="">Request Reviews</a></li>
+    	          <li><a href="">Create Topic</a></li>
+    	        </ul>
+    	      </li>
+    	      <li><a href="">Write</a>
+    	        <ul>
+    	          <li><a href="">Answer Questions</a></li>
+    	          <li><a href="">Write Reviews</a></li>
+    	          <li><a href="">Saved Drafts</a></li>
+    	          <li><a href="">Create Blog</a></li>
+    	          <li><a href="">Write Post</a></li>
+    	        </ul>
+    	      </li>
+    	      <li><a href="/index/">Home</a>
+    	        <ul>
+    	          <li><a href="">Notifications</a></li>
+    	          <li><a href="">Inbox</a></li>
+    	        </ul>
+	      </li>
+    	      <li>
+
+{% if logged_user.username %}
+<a href="/profile/{{ logged_user.id }}">{{ logged_user.username }}</a>
+                <ul>
+                  <li><a href="/logout/">Logout</a></li>
+                </ul>
+{% else %}
+<a href="/login/?next={{ request.path }}">login</a>
+
+{% endif %}
+
+
+	      </li>
+
+    	    </ul>
+    	</div>
+    </div>
+    <div class="clear"></div>
+    <!-- End Menu --> 
+    
+  </div>
+  <!-- End Header --> 
+  
+ {% endblock %}
+
+{% block cuerpo %}
+
+{% endblock %}
+ 

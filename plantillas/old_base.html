@@ -1,0 +1,46 @@
+{% block cabecera %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>{%block title%}Q & A{%endblock%}</title>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<style>
+body{
+        font-family:Arial,Helvetica,sans-serif;
+        font-size: 14px;
+}
+</style>
+</head>
+{% endblock %}
+<br>
+{% block header %}
+<center>
+        <table width="90%">
+        <tr>
+                <td width="70%"> LOGO </td><td width=20>
+                {% if logged_user.username %}
+                        User:<a href="/profile/{{ logged_user.id }}">{{ logged_user.username }}</a>|  <a href="/logout/">logout</a>
+                {% else %}
+                        <a href="/login/?next={{ request.path }}">login</a>
+                {% endif %}
+
+                </td>
+        </tr>
+        <tr>
+                <td colspan=2>
+			 <center> 
+			 <a href="/addquestion/">Add a Question</a> |
+			 <a href="/index/">Home</a> |
+			 <a href="//">Profile</a> |
+			 <a href="//">Write</a> |
+			 </center>
+                </td>
+        </tr>
+        </table>
+</center>
+<hr>
+{% endblock %}
+
+{% block cuerpo %}
+
+{% endblock %}
