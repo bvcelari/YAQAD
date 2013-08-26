@@ -15,6 +15,12 @@ from django.template.defaultfilters import slugify
 #	Answers has likes... 
 #	Answer has comments... 
 #	likes = models.PositiveIntegerField(blank=True)
+class Topic(models.Model):
+	name = models.TextField(unique=True)
+        def __unicode__(self):
+          return str(self.name)
+
+	
 
 class Answer(models.Model):
 	#should an user make more than one answer?
@@ -42,6 +48,7 @@ class Question(models.Model):
 	answer = models.ManyToManyField(Answer,unique=False,blank=True)
 #	collapsed = this should have... when and who closed it?
 	owner = models.ForeignKey(User)
+	topics = models.ManyToManyField(Topic, unique=False)
 	def save(self, *args, **kwargs):
 	  self.machine_name = slugify(self.title)
 	  super(Question, self).save(*args, **kwargs)

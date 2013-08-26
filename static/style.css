@@ -1504,7 +1504,7 @@ ol.commentlist li {
 .forms fieldset .text-area {
 	color: #848484;
 	width: 573px;
-	height: 120px;
+	height: 40px;
 	padding: 7px;
 	font-size: 12px;
 	-webkit-box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 1);

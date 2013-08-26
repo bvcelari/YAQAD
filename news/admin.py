@@ -1,6 +1,6 @@
 # encoding: utf-8
 from django.contrib import admin
-from news.models import Answer, AnswerLikes, Question, Fedder
+from news.models import Answer, AnswerLikes, Question, Fedder, Topic
 
 class AnswerAdmin(admin.ModelAdmin): 
 	fieldsets = [
@@ -42,4 +42,14 @@ class FedderAdmin(admin.ModelAdmin):
         filter_horizontal = ('questions','answers',)
 	list_display=('fedder','name','surname','email',) 
 admin.site.register(Fedder,FedderAdmin)
+
+class TopicAdmin(admin.ModelAdmin): 
+	fieldsets = [
+		(None,
+			{'fields':('name',),}
+		
+		)
+	]
+	list_display=('name',) 
+admin.site.register(Topic,TopicAdmin)
 
