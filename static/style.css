@@ -1177,7 +1177,22 @@ ul.cat-list:after {
 	visibility: hidden;
 }
 
-.answerform fieldset .text-area {
+.answerform fieldset input#id_title {
+        color: #848484;
+        width: 273px;
+        height: 15px;
+        padding: 7px;
+        font-size: 12px;
+        -webkit-box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 1);
+        -moz-box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 1);
+        box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 1);
+        border: 1px solid #d5d5d5;
+        background-color: #f4f4f4;
+        font-family: Arial, Helvetica, sans-serif;
+        resize: none;
+}
+.answerform fieldset .text-area,
+.answerform fieldset textarea#id_content {
         color: #848484;
         width: 273px;
         height: 100px;

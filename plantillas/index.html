@@ -102,18 +102,28 @@
         <div class="sidebar">
 
                 <div class="sidebox">
+{% if state = 1 %}
                         <h5>Add a Question</h5>
-                        <form class="answerform" method="get">
-                        <fieldset>
-                        <textarea name="message" class="text-area" value="type question here" onfocus="this.value=''" onblur="this.value='type question here"></textarea>
+		        <form method="post" action="/addquestion/" class="answerform">{% csrf_token %}
+				<fieldset>
+		                {{ addquestionform.title }}
+				</fieldset>
+				<fieldset>
+		                {{ addquestionform.content }}
+				</fieldset>
+                        	<span class="left-link">
+                        	<a href="#">Add a Question</a>
+				</span>
+		        </form>
 
-                        </fieldset>
-                        <span class="left-link">
-                        <a href="#">
-Add a Question
-</a>
-                        </span>
-                        </form>
+
+{% endif %}
+{% if state = 2 %}
+<h2>Your question have been added.</h2>
+{% endif %}
+
+
+
                 </div>
                 <div class="sidebox">
                         <h3 class="line">Treding Topics</h3>

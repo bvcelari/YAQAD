@@ -34,7 +34,6 @@ def add_question(request):
 
 
 def index(request):
-	altero='al principio'
         state = 0
         username = ''
         if request.user:
@@ -46,9 +45,18 @@ def index(request):
 			#this are the related answers :  question_list[0].answer.count()
 			if question_list.exists() is False:
 				question_list=''
+			#we add the question form...
+			addquestionform = AddQuestionForm()
+			if request.POST:
+	                        addquestionform =AddQuestionForm(request.POST)
+	                        if addquestionform.is_valid():
+	                                addquestion = addquestionform.save(commit=False)
+	                                addquestion.owner_id = logged_user.id
+	                                addquestion.save()
+	                                #I guess that should miss Slug field, date.. all the other staff
+	                                state = 2
 	else:
 		question_list=''
-		altero='estamos fuera'
 
         return render_to_response('index.html',
 		{
@@ -57,7 +65,8 @@ def index(request):
                         'logged_user':logged_user,
                         'state':state,
                         'question_list':question_list,
-			'altero':altero,
+                        'state':state,
+                        'addquestionform':addquestionform,
 		},
 		context_instance=RequestContext(request))
 
