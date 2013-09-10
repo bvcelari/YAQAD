@@ -18,6 +18,7 @@ urlpatterns = patterns('',
         url(r'^login/$', 'news.views.mylogin'),
         url(r'^logout/$', 'news.views.log_me_out'),
         url(r'^addquestion/$', 'news.views.add_question'),
+        url(r'^ajaxaddquestion/$', 'news.views.ajax_add_question'),
 
 
 )

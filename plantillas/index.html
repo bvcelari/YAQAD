@@ -103,8 +103,10 @@
 
                 <div class="sidebox">
 {% if state = 1 %}
+		<div id="ajaxquestion">
+			<!-- TODO: you must create a template for this form... -->
                         <h5>Add a Question</h5>
-		        <form method="post" action="/addquestion/" class="answerform">{% csrf_token %}
+		        <form method="post" action="/ajaxaddquestion/" class="answerform" id="addquestionform">{% csrf_token %}
 				<fieldset>
 		                {{ addquestionform.title }}
 				</fieldset>
@@ -112,14 +114,16 @@
 		                {{ addquestionform.content }}
 				</fieldset>
                         	<span class="left-link">
-                        	<a href="#">Add a Question</a>
+                    		<!-- <input type="submit" value="Submit" name="submit" class="btn-submit" /> -->
+                        	<a href="#" onclick="CallAddQuestion($('#id_title').val(),$('#id_content').val());">Add a Question</a>
 				</span>
 		        </form>
+		</div>
 
 
 {% endif %}
 {% if state = 2 %}
-<h2>Your question have been added.</h2>
+<h5>Your question have been added.</h5>
 {% endif %}
 
 

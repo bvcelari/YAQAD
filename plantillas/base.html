@@ -13,6 +13,27 @@
 <script type="text/javascript" src="/static/style/js/superfish.js"></script>
 <script type="text/javascript" src="/static/style/js/jquery.prettyPhoto.js"></script>
 </head>
+<script>
+function CallAddQuestion(TitleValue, ContentValue){
+        var parameters = {
+                "TitleValue" : TitleValue,
+                "ContentValue" : ContentValue,
+		csrfmiddlewaretoken: '{{ csrf_token }}'
+
+        };
+        $.ajax({
+                data:  parameters,
+                url:   '/ajaxaddquestion/',
+                type:  'post',
+                beforeSend: function () {
+                        $("#ajaxquestion").html("your question is been processed... please, wait...");
+                },
+                success:  function (response) {
+                        $("#ajaxquestion").html(response);
+                }
+        });
+}
+</script>
 {% endblock %}
 {% block header %}
 <body>

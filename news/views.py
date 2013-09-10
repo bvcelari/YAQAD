@@ -5,7 +5,57 @@ from django.shortcuts import render_to_response,redirect
 from django.template import RequestContext
 from news.forms import AddQuestionForm
 from news.models import Question
+## needed by ajax
+from django.http import HttpResponse  
+from django.template.loader import render_to_string  
+from django.utils import simplejson  
+from django.utils.functional import Promise  
+from django.utils.encoding import force_unicode  
+## end needed by ajax
 
+
+
+class LazyEncoder(simplejson.JSONEncoder):  
+    """Encodes django's lazy i18n strings. 
+    """  
+    def default(self, obj):  
+        if isinstance(obj, Promise):  
+            return force_unicode(obj)  
+        return obj  
+
+@login_required(login_url='/login/')
+def ajax_add_question(request):
+	result = ''
+        state = 1
+        logged_user = request.user
+        if logged_user.is_active:
+                #Should separate this in Helper functions...
+                addquestionform = AddQuestionForm()
+                if request.POST:
+		   if request.is_ajax():  
+		  	print request.POST
+                        addquestionform =AddQuestionForm(request.POST)
+                        if addquestionform.is_valid():
+		  		print "aqui2"
+                                addquestion = addquestionform.save(commit=False)
+                                addquestion.owner_id = logged_user.id
+                                addquestion.save()
+                                state = 2
+				result = simplejson.dumps({  
+				            "your question have been added!! server side!! ": response,  
+				            "type": type,  
+				        }, cls=LazyEncoder)  
+				result = "alert(Yes)"
+				print "aqui"
+				
+	return HttpResponse(result)  
+
+       # return render_to_response('addquestion.html',
+       #         {
+       #                 'state':state,
+       #                 'addquestionform':addquestionform,
+       #         },
+       #         context_instance=RequestContext(request))
 
 
 
