@@ -21,7 +21,15 @@
                                 <ul class="post-info">
                                         <li><span class="post-link"></span><a href="#">{{ myquestion.publication_date|date:"F t, Y"  }}</a></li>
                                         <li><span class="post-comment"></span><a href="#">{{myquestion.answer.count }}</a></li>
-                                        <li><span class="post-tag"></span><a href="#">Topic 1</a>, <a href="#">Topic 2</a></li>
+                                        <li><span class="post-tag">
+					</span>
+					{% for my_topics in myquestion.topics.all %} 
+						{% if forloop.last %}
+							<a href="#">{{ my_topics.name }}</a>
+						{% else %}
+							<a href="#">{{ my_topics.name }}</a>,
+						{% endif %}
+					{% endfor %}
                                 </ul>
                                 <div class="share"><span class="post-share"></span><a href="#">Share</a></div>
                                 <div class="clear"></div>
