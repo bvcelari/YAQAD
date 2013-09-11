@@ -28,10 +28,12 @@ def ajax_add_question(request):
 	result = ''
         state = 1
         logged_user = request.user
+	print "in request"
         if logged_user.is_active:
                 #Should separate this in Helper functions...
                 addquestionform = AddQuestionForm()
                 if request.POST:
+		   print request.POST
 		   if request.is_ajax():  
 		  	print request.POST
                         addquestionform =AddQuestionForm(request.POST)
@@ -42,10 +44,8 @@ def ajax_add_question(request):
                                 addquestion.save()
                                 state = 2
 				result = simplejson.dumps({  
-				            "your question have been added!! server side!! ": response,  
-				            "type": type,  
+				            "your question have been added!! Soon will be available ": "message",  
 				        }, cls=LazyEncoder)  
-				result = "alert(Yes)"
 				print "aqui"
 				
 	return HttpResponse(result)  
