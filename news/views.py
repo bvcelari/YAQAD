@@ -44,11 +44,13 @@ def ajax_add_question(request):
                                 addquestion.save()
                                 state = 2
 				result = simplejson.dumps({  
-				            "your question have been added!! Soon will be available ": "message",  
-				        }, cls=LazyEncoder)  
-				print "aqui"
+					'message': "Success message", 
+				        'message_type': 'success',
+				        'response': "Your question have been added",
+				        })
+				result = "Your question have been added..."
 				
-	return HttpResponse(result)  
+	return HttpResponse(result)
 
        # return render_to_response('addquestion.html',
        #         {

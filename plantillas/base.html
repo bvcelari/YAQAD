@@ -23,9 +23,9 @@ function CallAddQuestion(TitleValue, ContentValue){
               $("#ajaxquestion").html("your question is been processed... please, wait...");
     },
 
-    success: function(){
+    success: function(data){
       // code to update DOM here
-	$("#ajaxquestion").html(message);
+	$("#ajaxquestion").html(data);
     }
 
         });
