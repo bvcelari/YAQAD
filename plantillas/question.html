@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block cuerpo %}
+<!-- TODO: this if should be removed and give the control to mark login_required -->
+	{% if logged_user.username %}
 	  <div id="wrapper">
     <div class="container">
     <div class="post text">
@@ -9,7 +11,7 @@
         <div class="middle">
 	
 		<div class="post-text">
-                        <h2 class="title"><a href="http://192.168.1.17/{{ myquestion.machine_name }}">{{ myquestion }}</a></h2>
+                        <h2 class="title"><a href="http://192.168.1.17/{{myquestion.id}}/{{ myquestion.machine_name }}">{{ myquestion }}</a></h2>
                         <div class="info"><span>By: Owner </span>  </div>
                         <p>
                         </p>
@@ -112,7 +114,6 @@
 				</fieldset>
                         	<span class="left-link">
                     		<!-- <input type="submit" value="Submit" name="submit" class="btn-submit" /> -->
-				<!-- TODO : fix add question should or not be shown,depends login required field, may be a mark for what be shown or not :)  -->
                         	<a href="#" onclick="CallAddQuestion($('#id_title').val(),$('#id_content').val());">Add a Question</a>
 				</span>
 		        </form>
@@ -122,6 +123,7 @@
 {% endif %}
 {% if state = 2 %}
 <h5>Your question have been added.</h5>
+{% endif %}
 
 
 

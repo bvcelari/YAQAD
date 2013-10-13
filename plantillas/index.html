@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block cuerpo %}
+<!-- TODO: this if should be removed and give the control to mark login_required -->
 	{% if logged_user.username %}
 	  <div id="wrapper">
     <div class="container">
@@ -11,7 +12,7 @@
         <div class="middle">
 	
 		<div class="post-text">
-                        <h2 class="title"><a href="#">{{ myquestion }}</a></h2>
+                        <h2 class="title"><a href="http://192.168.1.17/{{myquestion.id}}/{{ myquestion.machine_name }}">{{ myquestion }}</a></h2>
                         <div class="info"><span>By: Owner </span>  </div>
                         <p>
                         </p>
@@ -42,7 +43,7 @@
 
 			{% for my_answer in myquestion.answer.all %}
 		<!-- Answer for each Question -->
-<!-- 		<br>
+<!-- <br>
 		        <div id="comments">
 		          <ol id="singlecomments" class="commentlist">
 		
@@ -70,6 +71,7 @@
         <!-- Begin Form -->
         <div class="comment-form">
 <!--           <h3 class="line">Leave a Reply</h3> -->
+<!--
           <div class="form-container">
             <form class="forms" action="#" method="post">
               <fieldset>
@@ -93,8 +95,10 @@
             <div class="response"></div>
 
           </div>
+-->
         </div>
         <!-- End Form -->
+
 <br>
 
         </div> <!-- End Container -->
@@ -134,7 +138,7 @@
                         <ul class="popular-posts">
                                 <li>
                                         <a href="#"><img src="/static/style/images/art/ad1.jpg" alt="" /></a>
-                                        <h5><a href="#">Topic 1</a></h5>
+                                        <h5><a href="#">Update Principal Frame with updated question... when trusted user? permissions? chech searches similar... could be cool</a></h5>
                                 </li>
 
                                 <li>
