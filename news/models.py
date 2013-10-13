@@ -42,7 +42,8 @@ class Question(models.Model):
 #	Can a questions owner write an answer?
 	title = models.CharField(max_length=255)
 	subtitle = models.CharField(max_length=255,blank=True)
-	machine_name = models.SlugField(max_length=255, primary_key=True)
+#	machine_name = models.SlugField(max_length=255, primary_key=True)
+	machine_name = models.SlugField(max_length=255)
 	content = models.TextField(blank=True)
 	publication_date = models.DateTimeField(null=True,blank=True,auto_now_add=True)
 	answer = models.ManyToManyField(Answer,unique=False,blank=True)
