@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+{% block cuerpo %}
+	  <div id="wrapper">
+    <div class="container">
+    <div class="post text">
+    <div class="icon-text"> </div>
+    <div class="content">
+        <div class="top"></div>
+        <div class="middle">
+	
+		<div class="post-text">
+                        <h2 class="title"><a href="http://192.168.1.17/{{ myquestion.machine_name }}">{{ myquestion }}</a></h2>
+                        <div class="info"><span>By: Owner </span>  </div>
+                        <p>
+                        </p>
+                </div>
+                <div class="meta-wrapper">
+                        <div class="meta">
+                                <ul class="post-info">
+                                        <li><span class="post-link"></span><a href="#">{{ myquestion.publication_date|date:"F t, Y"  }}</a></li>
+                                        <li><span class="post-comment"></span><a href="#">{{myquestion.answer.count }}</a></li>
+                                        <li><span class="post-tag">
+					</span>
+					{% for my_topics in myquestion.topics.all %} 
+						{% if forloop.last %}
+							<a href="#">{{ my_topics.name }}</a>
+						{% else %}
+							<a href="#">{{ my_topics.name }}</a>,
+						{% endif %}
+					{% endfor %}
+                                </ul>
+                                <div class="share"><span class="post-share"></span><a href="#">Share</a></div>
+                                <div class="clear"></div>
+                        </div>
+                </div>
+
+        </div>
+
+		        <div class="bottom"></div>
+
+			{% for my_answer in myquestion.answer.all %}
+		<!-- Answer for each Question -->
+<br>
+		        <div id="comments">
+		          <ol id="singlecomments" class="commentlist">
+		
+		            <li class= "clearfix">
+		              <div class="user"><img alt="" src="/static/style/images/art/ad4.jpg" height="48" width="48" class="avatar" /><a class="reply-link" href="#">Reply</a></div>
+		              <div class="message">
+		                <div class="info">
+		                  <h4><a href="#">{{ my_answer.writer }}</a></h4>
+		                  <span class="date">August 29, 2013</span></div>
+		                <p>Quisque tristique tincidunt metus non aliquam. Quisque ac risus sit amet quam sollicitudin vestibulum vitae malesuada libero. Mauris magna elit, suscipit non ornare et, blandit a tellus. Pellentesque dignissim ornare elit, quis mattis eros sodales ac.</p>
+		              </div>
+		              <div class="clear"></div>
+		            </li>
+		          </ol>
+		        </div>
+		<!--End  Answer for each Question -->
+			{% endfor %}
+    </div> <!-- end content -->
+<p>&nbsp;</p>
+<br>
+
+    </div>
+
+        <!-- Begin Form -->
+        <div class="comment-form">
+<!--           <h3 class="line">Leave a Reply</h3> -->
+          <div class="form-container">
+            <form class="forms" action="#" method="post">
+              <fieldset>
+                <ol>
+                  <li class="form-row text-area-row">
+                    <label>Answer</label>
+                    <textarea name="message" class="text-area required"></textarea>
+                  </li>
+                  <li class="form-row hidden-row">
+                    <input type="hidden" name="hidden" value="" />
+                  </li>
+                  <li class="button-row">
+                    <input type="submit" value="Submit" name="submit" class="btn-submit" />
+                    <input type="submit" value="Maybe Later" name="Maybe Later" class="btn-submit" />
+                  </li>
+                </ol>
+                <input type="hidden" name="v_error" id="v-error" value="Required" />
+                <input type="hidden" name="v_email" id="v-email" value="Enter a valid email" />
+              </fieldset>
+            </form>
+            <div class="response"></div>
+
+          </div>
+        </div>
+        <!-- End Form -->
+<br>
+
+        </div> <!-- End Container -->
+
+        <div class="sidebar">
+
+                <div class="sidebox">
+{% if state = 1 %}
+		<div id="ajaxquestion">
+			<!-- TODO: you must create a template for this form... -->
+                        <h5>Add a Question</h5>
+		        <form method="post" action="/ajaxaddquestion/" class="answerform" id="addquestionform">{% csrf_token %}
+				<fieldset>
+		                {{ addquestionform.title }}
+				</fieldset>
+				<fieldset>
+		                {{ addquestionform.content }}
+				</fieldset>
+                        	<span class="left-link">
+                    		<!-- <input type="submit" value="Submit" name="submit" class="btn-submit" /> -->
+				<!-- TODO : fix add question should or not be shown,depends login required field, may be a mark for what be shown or not :)  -->
+                        	<a href="#" onclick="CallAddQuestion($('#id_title').val(),$('#id_content').val());">Add a Question</a>
+				</span>
+		        </form>
+		</div>
+
+
+{% endif %}
+{% if state = 2 %}
+<h5>Your question have been added.</h5>
+
+
+
+                </div>
+                <div class="sidebox">
+                        <h3 class="line">Treding Topics</h3>
+                        <ul class="popular-posts">
+                                <li>
+                                        <a href="#"><img src="/static/style/images/art/ad1.jpg" alt="" /></a>
+                                        <h5><a href="#">Update Principal Frame with updated question... when trusted user? permissions? chech searches similar... could be cool</a></h5>
+                                </li>
+
+                                <li>
+                                        <a href="#"><img src="/static/style/images/art/ad2.jpg" alt="" /></a>
+                                        <h5><a href="#">Topic 2</a></h5>
+                                </li>
+
+                                <li>
+                                        <a href="#"><img src="/static/style/images/art/ad3.jpg" alt="" /></a>
+                                        <h5><a href="#">Topic 2</a></h5>
+                                </li>
+                        </ul>
+                </div>
+                <div class="sidebox">
+                        <h3 class="line">Categories</h3>
+                        <ul class="cat-list">
+				<li><a href="#">Unanswered Questions</a></li>
+				<li><a href="#">Write Reviews</a></li>
+				<li><a href="#">Saved Drafts</a></li>
+				<li><a href="#">Views</a></li>
+				<li><a href="#">Notifications</a></li>
+				<li><a href="#">Inbox</a></li>
+				<li><a href="#">Invite Friends</a></li>
+                        </ul>
+                </div>
+
+
+        </div>
+    <div class="clear"></div>
+
+  </div>
+  <!-- End Wrapper -->
+
+  <div class="push"></div>
+</div>
+<!-- End Body Wrapper -->
+
+<div id="footer">
+  <div class="footer">
+    <p>Copyright &copy; 2011 Socialike. All Rights Reserved.</p>
+  </div>
+</div>
+<script type="text/javascript" src="/static/style/js/scripts.js"></script>
+</body>
+
+
+
+	
+	{% else %}
+	<h2>You are not logged...  no extra info for you...</h2>
+	{% endif %}
+</body>
+</html>
+
+{% endblock %}
