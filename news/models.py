@@ -24,9 +24,10 @@ class Topic(models.Model):
 
 class Answer(models.Model):
 	#should an user make more than one answer?
-	writer = models.ForeignKey(User, unique=True)
+	#writer can not be unique... is not an id.. should be cool a uniqes pair of writer question to search quickly
+	writer = models.ForeignKey(User)
 	answer_content = models.TextField(blank=True)
-	likes = models.PositiveIntegerField(blank=True)
+	likes = models.PositiveIntegerField(blank=True,default=0)
 	#should be recorded when was added?
 
         def __unicode__(self):

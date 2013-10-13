@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render_to_response,redirect
 from django.template import RequestContext
 from news.forms import AddQuestionForm
+from news.forms import AddAnswerForm
 from news.models import Question
 ## needed by ajax
 from django.http import HttpResponse  
@@ -23,12 +24,14 @@ def question(request,question_id,slug):
         result = ''
 	myquestion=''
 	addquestionform = ''
+	addanswerform = ''
         logged_user = request.user
         if logged_user.is_active:
 		state=1
 		myquestion = Question.objects.get(id=question_id)
                 #Should separate this in Helper functions...
                 addquestionform = AddQuestionForm()
+                addanswerform = AddAnswerForm()
                 if request.POST:
                         addquestionform =AddQuestionForm(request.POST)
                         if addquestionform.is_valid():
@@ -47,8 +50,37 @@ def question(request,question_id,slug):
                         'state':state,
                         'myquestion':myquestion,
                         'addquestionform':addquestionform,
+                        'addanswerform':addanswerform,
                 },
                 context_instance=RequestContext(request))
+
+@login_required(login_url='/login/')
+def ajax_add_answer(request):
+        result = ''
+        state = 1
+        logged_user = request.user
+        if logged_user.is_active:
+                #Should separate this in Helper functions...
+                addanswerform = AddAnswerForm()
+                if request.POST:
+                   if request.is_ajax():
+                        addanswerform =AddAnswerForm(request.POST)
+                        if addanswerform.is_valid():
+                                addanswer = addanswerform.save(commit=False)
+                                addanswer.writer_id = logged_user.id
+                                addanswer.save()
+				#Now should and this answer to the question model
+				#SEND ID... or.. get url... or... Find a safe way :S
+                                state = 2
+                                result = simplejson.dumps({
+                                        'message': "Success message",
+                                        'message_type': 'success',
+                                        'response': "Your answer have been added",
+                                        })
+                                result = "Your answer have been added..."
+
+        return HttpResponse(result)
+
 
 
 @login_required(login_url='/login/')

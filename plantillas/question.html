@@ -67,32 +67,27 @@
     </div>
 
         <!-- Begin Form -->
+        <!-- TODO: Desing #MP-->
         <div class="comment-form">
-<!--           <h3 class="line">Leave a Reply</h3> -->
-          <div class="form-container">
-            <form class="forms" action="#" method="post">
-              <fieldset>
-                <ol>
-                  <li class="form-row text-area-row">
-                    <label>Answer</label>
-                    <textarea name="message" class="text-area required"></textarea>
-                  </li>
-                  <li class="form-row hidden-row">
-                    <input type="hidden" name="hidden" value="" />
-                  </li>
-                  <li class="button-row">
-                    <input type="submit" value="Submit" name="submit" class="btn-submit" />
-                    <input type="submit" value="Maybe Later" name="Maybe Later" class="btn-submit" />
-                  </li>
-                </ol>
-                <input type="hidden" name="v_error" id="v-error" value="Required" />
-                <input type="hidden" name="v_email" id="v-email" value="Enter a valid email" />
-              </fieldset>
-            </form>
-            <div class="response"></div>
+	  <div class="ajaxanswer">
+          	<div class="form-container">
+	  	 <form  method="post" action="/ajaxaddanswer/" class="forms" id="addanswerform">{% csrf_token %}
 
-          </div>
+          	          <label>Answer</label>
+	  	      	<fieldset>
+	  	      	{{ addanswerform.answer_content }}
+	  	      	</fieldset>
+          	          <input type="hidden" name="hidden" value="" />
+          	              	<span class="left-link">
+          	          <a href="#" onclick="CallAddAnswer($('#id_answer_content').val());">Add a Answer</a>
+	  	      	</span>
+          	  </form>
+          	  <div class="response"></div>
+
+          	</div>
+	  </div>
         </div>
+        <!-- End TODO: Desing #MP-->
         <!-- End Form -->
 <br>
 

@@ -30,6 +30,25 @@ function CallAddQuestion(TitleValue, ContentValue){
 
         });
 }
+
+function CallAddAnswer(ContentValue){
+        $.ajax({
+    data: $('#addanswerform').serialize(),
+    type: 'post',
+    url: '/ajaxaddanswer/',
+    beforeSend: function () {
+              $("#ajaxanswer").html("your answer is been processed... please, wait...");
+    },
+
+    success: function(data){
+      // code to update DOM here
+        $("#ajaxanswer").html(data);
+    }
+
+        });
+}
+
+
 </script>
 {% endblock %}
 {% block header %}

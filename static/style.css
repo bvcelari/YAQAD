@@ -1088,6 +1088,10 @@ ul.latest-posts li em.month {
 	float:right;
         padding:10px 0px;
 }
+.comment-form span.left-link {
+	float:right;
+        padding:10px 0px;
+}
 
 
 ul.popular-posts {
