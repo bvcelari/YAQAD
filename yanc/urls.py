@@ -19,6 +19,8 @@ urlpatterns = patterns('',
         url(r'^logout/$', 'news.views.log_me_out'),
         url(r'^addquestion/$', 'news.views.add_question'),
         url(r'^ajaxaddquestion/$', 'news.views.ajax_add_question'),
+	#url(r'^(?P<question_id>\d+)/$',  'news.views.question',name = 'question'),
+	url(r'^(?P<question_id>\d+)/(?P<slug>[-\w]+)/$',  'news.views.question'),
 
 
 )
