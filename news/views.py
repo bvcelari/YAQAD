@@ -12,33 +12,57 @@ from django.utils import simplejson
 from django.utils.functional import Promise  
 from django.utils.encoding import force_unicode  
 ## end needed by ajax
+# I am sure that there is a better way than state flags to check where are we
+#0 = logout
+#1 = login 
+#2 = result form
+
+#login_required(login_url='/login/')
+def question(request,question_id,slug):
+	state=1
+        result = ''
+	myquestion=''
+	addquestionform = ''
+        logged_user = request.user
+        if logged_user.is_active:
+		state=1
+		myquestion = Question.objects.get(id=question_id)
+                #Should separate this in Helper functions...
+                addquestionform = AddQuestionForm()
+                if request.POST:
+                        addquestionform =AddQuestionForm(request.POST)
+                        if addquestionform.is_valid():
+                                addquestion = addquestionform.save(commit=False)
+                                addquestion.owner_id = logged_user.id
+                                addquestion.save()
+                                #I guess that should miss Slug field, date.. all the other staff
+                                state = 2
 
 
 
-class LazyEncoder(simplejson.JSONEncoder):  
-    """Encodes django's lazy i18n strings. 
-    """  
-    def default(self, obj):  
-        if isinstance(obj, Promise):  
-            return force_unicode(obj)  
-        return obj  
+
+        return render_to_response('question.html',
+                {
+                        'logged_user':logged_user,
+                        'state':state,
+                        'myquestion':myquestion,
+                        'addquestionform':addquestionform,
+                },
+                context_instance=RequestContext(request))
+
 
 @login_required(login_url='/login/')
 def ajax_add_question(request):
 	result = ''
         state = 1
         logged_user = request.user
-	print "in request"
         if logged_user.is_active:
                 #Should separate this in Helper functions...
                 addquestionform = AddQuestionForm()
                 if request.POST:
-		   print request.POST
 		   if request.is_ajax():  
-		  	print request.POST
                         addquestionform =AddQuestionForm(request.POST)
                         if addquestionform.is_valid():
-		  		print "aqui2"
                                 addquestion = addquestionform.save(commit=False)
                                 addquestion.owner_id = logged_user.id
                                 addquestion.save()
@@ -88,6 +112,8 @@ def add_question(request):
 def index(request):
         state = 0
         username = ''
+	question_list=''
+        addquestionform=''
         if request.user:
         	logged_user = request.user
                 if logged_user.is_active:
@@ -154,4 +180,6 @@ def mylogin(request):
 def log_me_out(request):
         logout(request)
         return redirect('/index/')
+
+
 
