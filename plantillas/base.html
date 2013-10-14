@@ -31,7 +31,7 @@ function CallAddQuestion(TitleValue, ContentValue){
         });
 }
 
-function CallAddAnswer(ContentValue){
+function CallAddAnswer(ContentValue,QuestionId){
         $.ajax({
     data: $('#addanswerform').serialize(),
     type: 'post',
