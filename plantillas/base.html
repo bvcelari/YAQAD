@@ -33,7 +33,8 @@ function CallAddQuestion(TitleValue, ContentValue){
 
 function CallAddAnswer(ContentValue,QuestionId){
         $.ajax({
-    data: $('#addanswerform').serialize(),
+    /* TODO: I don like to hardcode question id here... but I do not have any other way yet :( */
+    data: $('#addanswerform').serialize()+ "&question_id="+QuestionId,
     type: 'post',
     url: '/ajaxaddanswer/',
     beforeSend: function () {

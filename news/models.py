@@ -28,7 +28,7 @@ class Answer(models.Model):
 	writer = models.ForeignKey(User)
 	answer_content = models.TextField(blank=True)
 	likes = models.PositiveIntegerField(blank=True,default=0)
-	#should be recorded when was added?
+	#TODO:Date should be recorded when was added
 
         def __unicode__(self):
           return str(self.writer) + ' - ' +self.answer_content[:300] + u'…'

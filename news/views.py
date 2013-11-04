@@ -6,6 +6,7 @@ from django.template import RequestContext
 from news.forms import AddQuestionForm
 from news.forms import AddAnswerForm
 from news.models import Question
+from news.models import Answer
 ## needed by ajax
 from django.http import HttpResponse  
 from django.template.loader import render_to_string  
@@ -55,6 +56,7 @@ def question(request,question_id,slug):
                 context_instance=RequestContext(request))
 
 @login_required(login_url='/login/')
+#def ajax_add_answer(request,answer_content, question_id):
 def ajax_add_answer(request):
         result = ''
         state = 1
@@ -68,9 +70,11 @@ def ajax_add_answer(request):
                         if addanswerform.is_valid():
                                 addanswer = addanswerform.save(commit=False)
                                 addanswer.writer_id = logged_user.id
-                                addanswer.save()
-				#Now should and this answer to the question model
-				#SEND ID... or.. get url... or... Find a safe way :S
+                                myanswer= addanswer.save()
+				#TODO: question_id is hardcoded in base.html ... find a better way
+				myquestion=Question.objects.get(id=request.POST['question_id'])
+				myquestion.answer.add(addanswer.id)
+				myquestion.save()
                                 state = 2
                                 result = simplejson.dumps({
                                         'message': "Success message",
