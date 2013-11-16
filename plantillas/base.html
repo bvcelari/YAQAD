@@ -39,15 +39,23 @@ function CallAddAnswer(ContentValue,QuestionId){
     url: '/ajaxaddanswer/',
     beforeSend: function () {
               $("#ajaxanswer").html("your answer is been processed... please, wait...");
+		// this not work... so, hide the form
+		document.getElementById('addanswerform').style.display='none';
+		//TODO: update answers of a Question in div answerbox
     },
 
     success: function(data){
       // code to update DOM here
         $("#ajaxanswer").html(data);
+	
     }
 
         });
 }
+
+$(function(){
+  setAutoComplete("TopicSearchField", "TopicResults", "/topics/?query=");
+});
 
 
 </script>

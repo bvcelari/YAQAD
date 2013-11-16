@@ -7,6 +7,7 @@ from news.forms import AddQuestionForm
 from news.forms import AddAnswerForm
 from news.models import Question
 from news.models import Answer
+from news.models import Fedder
 ## needed by ajax
 from django.http import HttpResponse  
 from django.template.loader import render_to_string  
@@ -19,7 +20,20 @@ from django.utils.encoding import force_unicode
 #1 = login 
 #2 = result form
 
-#login_required(login_url='/login/')
+def ajax_add_topics(request):
+	result = []
+	if request.method == "GET":
+	    if request.GET.has_key(u'query'):
+	        value = request.GET[u'query']
+	        # Ignore queries shorter than length 3
+	        if len(value) > 2:
+	            model_results = Topic.objects.filter(name__icontains=value)
+	            results = [ x.name for x in model_results ]
+	json = simplejson.dumps(results)
+	return HttpResponse(json, mimetype='application/json')
+
+
+login_required(login_url='/login/')
 def question(request,question_id,slug):
 	state=1
         result = ''
@@ -102,6 +116,9 @@ def ajax_add_question(request):
                                 addquestion = addquestionform.save(commit=False)
                                 addquestion.owner_id = logged_user.id
                                 addquestion.save()
+				print(logged_user.id)
+				writer= Fedder.objects.get(fedder=logged_user.id)
+				writer.questions.add(addquestion.id)
                                 state = 2
 				result = simplejson.dumps({  
 					'message': "Success message", 
@@ -134,6 +151,8 @@ def add_question(request):
 				addquestion = addquestionform.save(commit=False)
 				addquestion.owner_id = logged_user.id
 				addquestion.save()
+                                writer= Fedder.objects.get(fedder=logged_user.id)
+                                writer.questions.add(addquestion.id)
 				#I guess that should miss Slug field, date.. all the other staff
 				state = 2
 
