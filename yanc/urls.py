@@ -22,7 +22,6 @@ urlpatterns = patterns('',
         url(r'^ajaxaddanswer/$', 'news.views.ajax_add_answer'),
 	#url(r'^(?P<question_id>\d+)/$',  'news.views.question',name = 'question'),
 	url(r'^(?P<question_id>\d+)/(?P<slug>[-\w]+)/$',  'news.views.question'),
-
-        url(r'^topics/$', 'news.views.ajax_add_topics'),
+     	url(r'^topic_auto_complete/$', 'news.views.ajax_add_topics', name='ajax_add_topics'),
 
 )

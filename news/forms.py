@@ -3,6 +3,7 @@
 from django import forms
 from news.models import Question
 from news.models import Answer
+from news.models import Topic
 
 class AddQuestionForm(forms.ModelForm):
   class Meta:
@@ -23,3 +24,15 @@ class AddAnswerForm(forms.ModelForm):
         }
 
 
+class TopicForm(forms.ModelForm):
+	name  = forms.CharField(max_length=100, help_text='type topic')
+	class Meta:
+        	model = Topic
+        	fields=('name',)
+		widgets = {
+         	   'name': forms.Textarea(attrs={'placeholder': 'Add a Topic'}),
+        	}
+
+#	def __init__(self, *args, **kwargs):
+#        	super(TopicForm, self).__init__(*args, **kwargs)
+#        	self.field['topic'].label = "Add a Topic"

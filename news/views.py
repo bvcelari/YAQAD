@@ -5,9 +5,11 @@ from django.shortcuts import render_to_response,redirect
 from django.template import RequestContext
 from news.forms import AddQuestionForm
 from news.forms import AddAnswerForm
+from news.forms import TopicForm
 from news.models import Question
 from news.models import Answer
 from news.models import Fedder
+from news.models import Topic
 ## needed by ajax
 from django.http import HttpResponse  
 from django.template.loader import render_to_string  
@@ -21,17 +23,18 @@ from django.utils.encoding import force_unicode
 #2 = result form
 
 def ajax_add_topics(request):
-	result = []
-	if request.method == "GET":
-	    if request.GET.has_key(u'query'):
-	        value = request.GET[u'query']
-	        # Ignore queries shorter than length 3
-	        if len(value) > 2:
-	            model_results = Topic.objects.filter(name__icontains=value)
-	            results = [ x.name for x in model_results ]
-	json = simplejson.dumps(results)
-	return HttpResponse(json, mimetype='application/json')
-
+	q = request.GET.get('term')
+	topics = Topic.objects.all()
+	topics_list = []
+	
+	for t in topics:
+	  if q in t.name:
+	     print("buscamos ::"+t.name+"::en "+q+"::")
+	     value = '%s ' % (t.name,)
+	     t_dict = {'id': t.id, 'label': value, 'value': value}
+	     topics_list.append(t_dict)
+	
+	return HttpResponse(simplejson.dumps(topics_list),mimetype='application/json')
 
 login_required(login_url='/login/')
 def question(request,question_id,slug):
@@ -47,6 +50,7 @@ def question(request,question_id,slug):
                 #Should separate this in Helper functions...
                 addquestionform = AddQuestionForm()
                 addanswerform = AddAnswerForm()
+		listopicform = TopicForm()
                 if request.POST:
                         addquestionform =AddQuestionForm(request.POST)
                         if addquestionform.is_valid():
@@ -169,6 +173,7 @@ def index(request):
         username = ''
 	question_list=''
         addquestionform=''
+	addtopicform=''
         if request.user:
         	logged_user = request.user
                 if logged_user.is_active:
@@ -180,6 +185,7 @@ def index(request):
 				question_list=''
 			#we add the question form...
 			addquestionform = AddQuestionForm()
+			addtopicform= TopicForm()
 			if request.POST:
 	                        addquestionform =AddQuestionForm(request.POST)
 	                        if addquestionform.is_valid():
@@ -200,6 +206,7 @@ def index(request):
                         'question_list':question_list,
                         'state':state,
                         'addquestionform':addquestionform,
+			'addtopicform':addtopicform,
 		},
 		context_instance=RequestContext(request))
 

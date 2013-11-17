@@ -9,9 +9,12 @@
 <link rel="stylesheet" type="text/css" href="/static/style.css" media="all" />
 <link rel="stylesheet" type="text/css" href="/static/style/type/classic.css" media="all" />
 <link rel="stylesheet" type="text/css" href="/static/style/type/goudy.css" media="all" />
-<script type="text/javascript" src="/static/style/js/jquery-1.6.2.min.js"></script>
+<!-- <script type="text/javascript" src="/static/style/js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="/static/style/js/superfish.js"></script>
-<script type="text/javascript" src="/static/style/js/jquery.prettyPhoto.js"></script>
+<script type="text/javascript" src="/static/style/js/jquery.prettyPhoto.js"></script> -->
+ <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" type="text/css" media="all" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script> 
 </head>
 <script>
 function CallAddQuestion(TitleValue, ContentValue){
@@ -53,10 +56,17 @@ function CallAddAnswer(ContentValue,QuestionId){
         });
 }
 
-$(function(){
-  setAutoComplete("TopicSearchField", "TopicResults", "/topics/?query=");
-});
-
+   $(document).ready(function(){  
+    $( "#id_name" ).autocomplete({
+      source: "{% url "ajax_add_topics" %}",
+      selectFirst:true,
+      minLength:3,
+      select:function(event,ui) {
+        $("#id_topic").val(ui.item.id)
+      }
+        });
+       
+   });
 
 </script>
 {% endblock %}
