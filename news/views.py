@@ -116,12 +116,23 @@ def ajax_add_question(request):
 		   if request.is_ajax():  
                         addquestionform =AddQuestionForm(request.POST)
                         if addquestionform.is_valid():
+				#add question
                                 addquestion = addquestionform.save(commit=False)
                                 addquestion.owner_id = logged_user.id
                                 addquestion.save()
-				print(logged_user.id)
+				#add owner
 				writer= Fedder.objects.get(fedder=logged_user.id)
 				writer.questions.add(addquestion.id)
+				#add topics
+				topiclist = request.POST['name']
+				for t in topiclist:
+					print(t.value)       
+					#if q in t.name:
+				        #     value = '%s ' % (t.name,)
+				        #     t_dict = {'id': t.id, 'label': value, 'value': value}
+				        #     topics_list.append(t_dict)
+
+				print(topiclist)
                                 state = 2
 				result = simplejson.dumps({  
 					'message': "Success message", 
