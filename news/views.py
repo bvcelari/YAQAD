@@ -29,7 +29,6 @@ def ajax_add_topics(request):
 	
 	for t in topics:
 	  if q in t.name:
-	     print("buscamos ::"+t.name+"::en "+q+"::")
 	     value = '%s ' % (t.name,)
 	     t_dict = {'id': t.id, 'label': value, 'value': value}
 	     topics_list.append(t_dict)
