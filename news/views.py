@@ -125,12 +125,12 @@ def ajax_add_question(request):
 				writer.questions.add(addquestion.id)
 				#add topics
 				topiclist = request.POST['name']
-				for t in topiclist.split(', ')[:-1]:
-					print("  -  "+t)       
-					#if q in t.name:
-				        #     value = '%s ' % (t.name,)
-				        #     t_dict = {'id': t.id, 'label': value, 'value': value}
-				        #     topics_list.append(t_dict)
+				print(topiclist)
+				for t in topiclist.split(' , ')[:-1]:
+					print("  -  ::"+t+"::")       
+					topictoadd=Topic.objects.get(name=t)
+					print(topictoadd.name)
+					addquestion.topics.add(topictoadd.id)
 
                                 state = 2
 				result = simplejson.dumps({  
