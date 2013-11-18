@@ -33,13 +33,8 @@ class Answer(models.Model):
         def __unicode__(self):
           return str(self.writer) + ' - ' +self.answer_content[:300] + u'…'
 
-#this class, give you fast access to how like what
-class AnswerLikes(models.Model):
-	answer_like = models.OneToOneField(Answer)
-	owner_like = models.OneToOneField(User)
 
 class Question(models.Model):
-#	Questions has Topics
 #	Can a questions owner write an answer?
 	title = models.CharField(max_length=255)
 	subtitle = models.CharField(max_length=255,blank=True)
@@ -51,6 +46,7 @@ class Question(models.Model):
 #	collapsed = this should have... when and who closed it?
 	owner = models.ForeignKey(User)
 	topics = models.ManyToManyField(Topic, unique=False)
+#	best_answer = user can say which is the best answer
 	def save(self, *args, **kwargs):
 	  self.machine_name = slugify(self.title)
 	  super(Question, self).save(*args, **kwargs)
@@ -68,6 +64,15 @@ class Question(models.Model):
 	
 	class Meta:
 	  ordering = [u'-publication_date']
+
+#this class, give you fast access to how like what
+class AnswerLikes(models.Model):
+	#should be question like a User can Only push one to one answer in one question,
+	#answer_like = models.OneToOneField(Answer)
+	question_like = models.OneToOneField(Question)
+	owner_like = models.OneToOneField(User)
+
+
 
 class Fedder(models.Model):
 	fedder = models.ForeignKey(User, unique=True)

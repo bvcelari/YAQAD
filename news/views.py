@@ -21,6 +21,12 @@ from django.utils.encoding import force_unicode
 #0 = logout
 #1 = login 
 #2 = result form
+def ajax_add_like(request):
+	q = request.GET.get('my_likes')	
+	#must check if I have liked before in this question 
+
+        return HttpResponse(simplejson.dumps(number_likes),mimetype='application/json')
+
 
 def ajax_add_topics(request):
 	q = request.GET.get('term')
@@ -138,14 +144,6 @@ def ajax_add_question(request):
 				result = "Your question have been added..."
 				
 	return HttpResponse(result)
-
-       # return render_to_response('addquestion.html',
-       #         {
-       #                 'state':state,
-       #                 'addquestionform':addquestionform,
-       #         },
-       #         context_instance=RequestContext(request))
-
 
 
 @login_required(login_url='/login/')
