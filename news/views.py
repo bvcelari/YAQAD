@@ -125,11 +125,8 @@ def ajax_add_question(request):
 				writer.questions.add(addquestion.id)
 				#add topics
 				topiclist = request.POST['name']
-				print(topiclist)
 				for t in topiclist.split(' , ')[:-1]:
-					print("  -  ::"+t+"::")       
 					topictoadd=Topic.objects.get(name=t)
-					print(topictoadd.name)
 					addquestion.topics.add(topictoadd.id)
 
                                 state = 2
