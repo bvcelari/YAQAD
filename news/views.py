@@ -27,20 +27,15 @@ def ajax_add_like(request):
 	myanswer=Answer.objects.get(id=request.POST['answer_id'])
 	logged_user = request.user
 	res = AnswerLikes.objects.filter(answer_like = myanswer.id , question_like = myquestion.id, owner_like = logged_user.id )
-	print(str(myanswer.id) +" "+str(myquestion.id)+" "+str(logged_user.id))
 	if res :
-		print("this request have done before")
 		my_response = "Maybe you voted before...."
 	else:
-		print("Someone new :) there was "+str(myanswer.likes))
 		myanswer.likes +=1
 		myanswer.save()
-		print("and now: "+str(myanswer.likes))
 		my_response = myanswer.likes
 		myanswerlikes= AnswerLikes.objects.create(answer_like = myanswer , question_like = myquestion , owner_like = logged_user)
 		myanswerlikes.save()	
 	
-	#must check if I have liked before in this question 
 	
 
         return HttpResponse(simplejson.dumps(my_response),mimetype='application/json')

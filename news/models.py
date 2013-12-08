@@ -68,11 +68,12 @@ class Question(models.Model):
 #this class, give you fast access to how like what
 class AnswerLikes(models.Model):
 	#should be question like a User can Only push one to one answer in one question,
-	answer_like = models.OneToOneField(Answer)
-	question_like = models.OneToOneField(Question,unique=False)
-	owner_like = models.OneToOneField(User,unique=False)
+	answer_like = models.ForeignKey(Answer)
+	question_like = models.ForeignKey(Question,unique=False)
+	owner_like = models.ForeignKey(User,unique=False)
 	class Meta:
-	        unique_together = (('question_like','owner_like'),)
+	        #unique_together = (('question_like','owner_like'),)
+	        unique_together = ("question_like","owner_like")
 
 
 
