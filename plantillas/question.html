@@ -47,7 +47,11 @@
 		          <ol id="singlecomments" class="commentlist">
 		
 		            <li class= "clearfix">
-		              <div class="user"><img alt="" src="/static/style/images/art/ad4.jpg" height="48" width="48" class="avatar" /><a class="reply-link" href="#">Reply</a></div>
+		              <div class="user"><img alt="" src="/static/style/images/art/ad4.jpg" height="48" width="48" class="avatar" /><div id="likes_{{my_answer.id}}">{{my_answer.likes }}</div>
+					<form  method="post" action="/ajax_add_like/" class="forms" id="addlikesform" >{% csrf_token %}
+					<a class="reply-link" href="#" onclick="CallAddLike('{{ myquestion.id }}','{{my_answer.id}}');">like</a>
+					</form>
+				</div>
 		              <div class="message">
 		                <div class="info">
 		                  <h4><a href="#">{{ my_answer.writer }}</a></h4>

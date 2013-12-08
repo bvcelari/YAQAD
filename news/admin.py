@@ -2,6 +2,14 @@
 from django.contrib import admin
 from news.models import Answer, AnswerLikes, Question, Fedder, Topic
 
+class AnswerLikesAdmin(admin.ModelAdmin):
+	fieldsets = [
+		(None, 
+			{'fields':('answer_like','question_like','owner_like'),}
+		)
+	]
+	list_display=('answer_like','question_like','owner_like')
+admin.site.register(AnswerLikes,AnswerLikesAdmin)	
 class AnswerAdmin(admin.ModelAdmin): 
 	fieldsets = [
 		(None,

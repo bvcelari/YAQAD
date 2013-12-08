@@ -15,6 +15,23 @@
 <script type="text/javascript" src="/static/style/js/superfish.js"></script>
 </head>
 <script>
+function CallAddLike(QuestionValue, AnswerValue){
+        $.ajax({
+    data: $("#addlikesform").serialize()+"&question_id="+QuestionValue+"&answer_id="+AnswerValue,
+    type: 'post',
+    url: '/ajax_add_like/',
+    beforeSend: function () {
+              $("#likes_"+AnswerValue).html("Counting");
+    },
+
+    success: function(data){
+      // code to update DOM here
+        $("#likes_"+AnswerValue).html(data);
+    }
+
+        });
+
+}
 function CallAddQuestion(TitleValue, ContentValue,TopicList){
         $.ajax({
     data: $('#addquestionform').serialize(),
